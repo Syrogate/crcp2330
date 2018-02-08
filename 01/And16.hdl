@@ -14,4 +14,52 @@ CHIP And16 {
 
     PARTS:
     // Put your code here:
+    Nand (a= a[0], b = b[0], out = tand0);
+	Nand (a = tand0, b = tand0, out = out[0]);
+
+	Nand (a = a[1], b = b[1], out = tand1);
+	Nand (a = tand1, b = tand1, out = out[1]);
+
+	Nand(a = a[2], b = b[2], out = tand2);
+	Nand(a = tand2, b = tand2, out = out[2]);
+
+	Nand(a = a[3], b = b[3], out = tand3);
+	Nand(a = tand3, b = tand3, out = out[3]);
+
+	Nand(a = a[4], b = b[4], out = tand4);
+	Nand(a = tand4, b = tand4, out = out[4]);
+
+	Nand(a = a[5], b = b[5], out = tand5);
+	Nand(a = tand5, b = tand5, out = out[5]);
+
+	Nand(a = a[6], b = b[6], out = tand6);
+	Nand(a = tand6, b = tand6, out = out[6]);
+
+	Nand(a = a[7], b = b[7], out = tand7);
+	Nand(a = tand7, b = tand7, out = out[7]);
+
+	Nand(a = a[8], b = b[8], out = tand8);
+	Nand(a = tand8, b = tand8, out = out[8]);
+
+	Nand(a = a[9], b = b[9], out = tand9);
+	Nand(a = tand9, b = tand9, out = out[9]);
+
+	Nand(a = a[10], b = b[10], out = tand10);
+	Nand(a = tand10, b = tand10, out = out[10]);
+
+	Nand(a = a[11], b = b[11], out = tand11);
+	Nand(a = tand11, b = tand11, out = out[11]);
+
+	Nand(a = a[12], b = b[12], out = tand12);
+	Nand(a = tand12, b = tand12, out = out[12]);
+
+	Nand(a = a[13], b = b[13], out = tand13);
+	Nand(a = tand13, b = tand13, out = out[13]);
+
+	Nand(a = a[14], b = b[14], out = tand14);
+	Nand(a = tand14, b = tand14, out = out[14]);
+
+	Nand(a = a[15], b = b[15], out = tand15);
+	Nand(a = tand15, b = tand15, out = out[15]);
+   
 }

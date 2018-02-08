@@ -15,4 +15,7 @@ CHIP DMux {
 
     PARTS:
     // Put your code here:
+    And (a = sel, b = in, out = b); //a is 0, b is 1, therefore outut would be b which is 1
+    Not (in = sel, out = notSel);	//in is not select, so output is not NOTselect
+    And (a = in, b = notSel, out = a);	//a would be 1, b would be not 0 therefore 1, so 																	output is 1*1=1
 }

@@ -15,4 +15,7 @@ CHIP Or {
 
     PARTS:
     // Put your code here:
+    Not (in = a, out = nota); 						//it is 1 if a is in
+    Not (in = b, out = notb); 						//it is 1 if b is in
+    Nand (a = nota, b = notb, out=out); 			//it is not a or b, therefore it is not 1
 }

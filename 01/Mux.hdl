@@ -15,4 +15,8 @@ CHIP Mux {
 
     PARTS:
     // Put your code here:
+    Not (in = sel, out = notsel); 			//not in = sel makes out = notsel
+    And (a = a, b = notsel, out = x); 		//a is itself, b is out, out is new variable x
+    And (a = sel, b = b, out = o); 			//a is sel, b is itself, out is the new variable o
+    Or (a = x, b = o, out = out); 	//a is first variable x, b is second variable o, out is out
 }

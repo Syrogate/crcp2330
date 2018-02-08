@@ -15,4 +15,7 @@ CHIP And {
 
     PARTS:
     // Put your code here:
+    Nand (a = a, b = b, out = nandout); 		//a is in, and b is in, therefore out is not in
+    Not (in = nandout, out = out); 				//in is not in, and out is 1
+
 }

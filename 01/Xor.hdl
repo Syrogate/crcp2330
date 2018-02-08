@@ -14,4 +14,9 @@ CHIP Xor {
 
     PARTS:
     // Put your code here:
+    Not (in = a, out = nota);				//if a is in, it is not a
+    Not (in = b, out = notb); 				//if b is in, it is not b
+    And (a = a, b = notb, out = a1); 		//if a=a, then b cannot be b, therefore a1
+    And (a = nota, b = b, out =b1);  		//if a cannot be a, then b=b, therefore b1
+    Or (a = a1, b = b1, out = out); 		//if a is a, and not b, then b is b, and not a, 																		then out is the output 
 }
