@@ -132,7 +132,7 @@ method void moveInvaders() {
 	let v = 0; let found = 0;
 	while ((v < numInvaders) & ~found) {
 		let temp_iv = invaders[v]; //temporary storage for array variable
-		let dead = temp_iv.getIsDead(); 
+		let dead = temp_iv.getAlive(); 
 		if (dead = 0) {
 			let ivL = temp_iv; //create temporary counter for left side
 			let found = 1;
@@ -144,7 +144,7 @@ method void moveInvaders() {
 	let v = 9; let found = 0;
 	while ((v > -1) & ~found) {
 		let temp_iv = invaders[v]; //temporary storage for array variable
-		let dead = temp_iv.getIsDead();
+		let dead = temp_iv.getAlive();
 		if (dead = 0) {
 			let ivR = temp_iv; //create temporary counter for right side
 			let found = 1;
@@ -365,7 +365,7 @@ method void moveInvaders() {
 				do moveProjectile();
 				if (firedShot = 0) {
 					let time = time + 1;	
-					do character.shootShot(); //invokes shoot function on spacebar press
+					do vehicle.fireShot(); //invokes shoot function on spacebar press
 					let firedShot = 1; //shots fired
 				}
 			}
@@ -444,7 +444,7 @@ method void moveInvaders() {
 			let v = 0;
 			while (v < numInvaders) {
 				let iv = invaders[v];
-				let dead = iv.getIsDead();
+				let dead = iv.getAlive();
 				if (dead = 0) { 
 					do createProjectile(iv);
 				}
@@ -499,7 +499,7 @@ method void moveInvaders() {
 		var int sy, sx; //shot x & y axis
 		var int ss; //shot size
 		var int vSize; //vehicle size
-		let sy = enRoute.getY(); 
+		let sy = enRoute.getY();
 		let vy = character.getY();
 		let sx = enRoute.getX();
 		let vx = character.getX();

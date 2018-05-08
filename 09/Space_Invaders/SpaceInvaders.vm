@@ -317,7 +317,7 @@ pop pointer 1
 push that 0
 pop local 3
 push local 3
-call Invader.getIsDead 1
+call Invader.getAlive 1
 pop local 9
 push local 9
 push constant 0
@@ -357,7 +357,7 @@ pop pointer 1
 push that 0
 pop local 3
 push local 3
-call Invader.getIsDead 1
+call Invader.getAlive 1
 pop local 9
 push local 9
 push constant 0
@@ -1239,8 +1239,7 @@ push this 6
 push constant 1
 add
 pop this 6
-push this 0
-call Vehicle.shootShot 1
+call vehicle.fireShot 0
 pop temp 0
 push constant 1
 pop this 2
@@ -1412,7 +1411,7 @@ pop pointer 1
 push that 0
 pop local 1
 push local 1
-call Invader.getIsDead 1
+call Invader.getAlive 1
 pop local 3
 push local 3
 push constant 0
