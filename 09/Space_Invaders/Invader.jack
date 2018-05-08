@@ -41,7 +41,7 @@ class Invader {
 	}
 	
 	method int getOrientation() {
-		return orientationn;
+		return orientation;
 	}
 		method void changeOrientation() {
 		if (orientation = 1) {

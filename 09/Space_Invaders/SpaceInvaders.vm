@@ -1,0 +1,84 @@
+function SpaceInvaders.new 0
+push constant 19
+call Memory.alloc 1
+pop pointer 0
+call Vehicle.new 0
+pop this 0
+push constant 0
+pop this 1
+push constant 0
+pop this 2
+push constant 10
+pop this 4
+push constant 0
+pop this 5
+push this 4
+call Array.new 1
+pop this 3
+push constant 0
+pop this 8
+push constant 0
+pop this 6
+push constant 0
+pop this 7
+push constant 0
+pop this 12
+push constant 0
+pop this 13
+push constant 10
+pop this 10
+push constant 10
+pop this 14
+push constant 50
+pop this 15
+push constant 10
+pop this 16
+push constant 0
+pop this 18
+push pointer 0
+call SpaceInvaders.makeInvaders 1
+pop temp 0
+push constant 3
+pop this 9
+push pointer 0
+return
+function SpaceInvaders.makeInvaders 4
+push argument 0
+pop pointer 0
+push constant 25
+pop local 0
+push constant 50
+pop local 1
+push constant 0
+pop local 2
+label WHILE_EXP0
+push local 2
+push this 4
+lt
+not
+if-goto WHILE_END0
+push local 0
+push local 1
+push this 10
+call Invader.new 3
+pop local 3
+push local 2
+push this 3
+add
+push local 3
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push constant 20
+add
+pop local 0
+push local 2
+push constant 1
+add
+pop local 2
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
