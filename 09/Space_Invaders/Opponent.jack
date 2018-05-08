@@ -19,7 +19,7 @@ class Opponent {
 		return;
 	}
 	
-	method void dispose() {
+	method void disposeMem() {
 		let alive = 1;
 		do Screen.setColor(false);
 	    do Screen.drawRectangle(x, y, x + size, y + size);
@@ -68,7 +68,7 @@ class Opponent {
 	method void moveY() {
 		if (alive = 0) {
 			do Screen.setColor(false);
-		  do Screen.drawRectangle(x, y, x + size, y + size);
+		    do Screen.drawRectangle(x, y, x + size, y + size);
 			let y = y + 10;
 			do Screen.setColor(true);
 			do Screen.drawRectangle(x, y, x+size, y+size);

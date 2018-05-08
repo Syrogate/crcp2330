@@ -28,7 +28,7 @@ class Vehicle {
 	}
 	
     /** Deallocates object memory. */
-    method void dispose() {
+    method void disposeMem() {
         do Memory.deAlloc(this);
         return;
     }
@@ -45,5 +45,42 @@ class Vehicle {
         do Screen.setColor(false);
 		do Screen.drawRectangle(x, y, x + size + width, y + size);
         return;
+    }
+
+    /** Move left by 2 pixels. */
+    method void moveLeft() {
+        if (x > 1) {
+            do Screen.setColor(false);
+            do Screen.drawRectangle(x, y, x + size + width, y + size);
+            let x = x - 2;
+            do Screen.setColor(true);
+            do Screen.drawRectangle(x, y, x + size + width, y + size);
+        }
+        do Sys.wait(8);
+        return;
+    }
+
+    /** Move right by 2 pixels. */
+    method void moveRight() {
+        if ((x + size) < 470) {
+            do Screen.setColor(false);
+            do Screen.drawRectangle(x, y, x + size + width, y + size);
+            let x = x + 2;
+            do Screen.setColor(true);
+            do Screen.drawRectangle(x, y, x + size + width, y + size);
+        }
+        do Sys.wait(8);
+        return;
+    }
+
+    method void fireShot() {
+        var int foobar;
+        let foobar = (size + width)/2;
+        let shot = Shot.new(x + foobar);
+        return;
+    }
+
+    method Shot getShot() {
+        return shot;
     }
 }
