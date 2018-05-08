@@ -124,7 +124,7 @@ method void moveInvaders() {
 	var int ivlx; //Left x axis componenent object of Invader class
 	var int ivy; //Y axis componenet object of Invader class
 	var int dir; //orientation
-	var int dead, found; //current and dead enemies
+	var int dead, found; //current and dead invaders
 	var int atLeft, atRight, atBottom; //border collision check
 	
 	// get first alive enemy on the left
@@ -186,7 +186,7 @@ method void moveInvaders() {
 				while (v < numInvaders) {
 					let iv = invaders[v];
 					do iv.flipX(); //goes other direction
-					do iv.changeOrientation(); //function call to switch orientaiton
+					do iv.changeOrientation(); //function call to switch orientation
 					let v = v + 1;
 				}
 			}
@@ -242,4 +242,164 @@ method void moveInvaders() {
 		}
 		return temp;
 	}
+
+
+    /** Starts the game. Handles inputs from the user that control
+     *  the square's movement, direction and size. */
+    method void run() {
+        var char key;
+			var int dead;
+        var boolean exit;
+        var Shot s; //s object for class Shot
+			var Shot sTemp; //temporary object for class Shot
+			var int didHit1, didHit2; //two variables to check hit box
+			var int timeMod; 
+			let didHit1 = 0;
+			let didHit2 = 0;
+        let exit = false;
+
+        //print statements
+		do Output.moveCursor(0,0);
+		do Output.printString("SCORE: ");
+		do Output.printInt(score);
+		do Output.printString("      LEVEL: ");
+		do Output.printInt(level);
+		do Output.printString("      LIVES: ");
+		do Output.printInt(lives);
+
+        while (~exit) {
+			let time = time + 1;
+            // waits for a key to be pressed.
+            while (key = 0) {
+                if (time = 299) {
+					do chooseInvader();
+				}
+				do moveProjectile();
+				
+				let time = time + 1;	
+				let key = Keyboard.keyPressed(); //calls keyboardpressed function
+                do moveCharacter(); //moves the player
+				let timeMod = mod(time, 60);
+				if (timeMod = 0) {
+					do moveInvaders(); //delay on movement for enemies
+				}
+				 if (isShot = 1) {
+                    let s = Characters.getShot(); //shot where the player is currently at
+                    do s.shoot(); //shoot function call
+					do trackShot(s); //observes shot movement
+					let didHit1 = hitInvader(s); //logic check
+					if (didHit1 = 1) {
+						do b.disposeMem(); //refresh shot
+						let isShot = 0;
+					}
+                }
+				if (lives = 0) {
+					let key = 1;
+				}
+            }
+			if (key = 1) {
+					do Screen.clearScreen();
+					do Output.moveCursor(0, 0);
+					do Output.printString("You lose! Do you wish to restart?");
+					do Output.moveCursor(10, 0);
+					do Output.printString("You killed ");
+					do Output.printInt(score);
+					do Output.printString(" invaders");
+					do Output.moveCursor(20, 0);
+					do Output.printString("Left for yes / Right for no");
+					let key = Keyboard.keyPressed();
+					while(key= 0) {
+						let key = Keyboard.keyPressed();
+					}
+				
+				//ask if want to restart.
+				
+				if (key = 130) {
+					do Screen.clearScreen();
+					do makeInvaders(); //reset invaders
+					let exit = false;
+					let lives = 3; //reset lives
+					let score = 0; //reset score
+					let level = 0; //reset level
+					do Output.moveCursor(0,0);
+					do Output.printString("SCORE: ");
+					do Output.printInt(score);
+					do Output.printString("      LEVEL: ");
+					do Output.printInt(level);
+					do Output.printString("      LIVES: ");
+					do Output.printInt(lives);
+				}
+				else {
+					let exit = true;
+					let key = 81;
+					
+				}
+			}
+			
+            if (key = 81) {
+                let exit = true;
+            }
+            if (key = 130) {
+				let time = time + 1;	
+				if (time = 299) {
+					do chooseInvader();
+				}
+				do moveProjectile();
+			    let orientation = 3; //move left
+            }
+            if (key = 132) {
+				let time = time + 1;	
+                if (time = 299) {
+					do chooseInvader();
+				}
+				do moveProjectile();
+				let orientation = 4; //move right
+            }
+            //space bar = 32
+            if (key = 32) { 
+				let time = time + 1;	
+				if (time = 299) {
+					do chooseInvader();
+				}
+				do moveProjectile();
+				if (isShot = 0) {
+					let time = time + 1;	
+					do character.shootShot(); //invokes shoot function on spacebar press
+					let isShot = 1;
+				}
+			}
+	
+            // waits for the key to be released.
+            while (~(key = 0)) {
+				if (time = 299) {
+					do chooseInvader();
+				}
+				do moveProjectile();
+				let time = time + 1;	
+			    let key = Keyboard.keyPressed();
+                do moveCharacter(); 
+				let timeMod = mod(time, 15);				
+				if (timeMod = 0) {
+					do moveInvaders(); //timer for invader movement
+				}
+				let key = 0;
+                let orientation = 0;
+                if (isShot = 1) {
+                    let s = character.getShot(); //shoot from this spot of the player
+                    do s.shoot(); //shoots the shot
+					do trackShot(s); //tracks shot movement 
+					let didHit2 = hitInvader(s); //logic loop
+					if (didHit2 = 1) {
+						do b.disposeMem();
+						let isShot = 0;
+					}
+					
+                }
+				
+            }
+		
+        }
+            
+        return;
+    }
 }
