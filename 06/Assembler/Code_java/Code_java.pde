@@ -3,7 +3,7 @@
 import java.util.Map;
 import java.util.TreeMap;
 
-class Mapping {
+class Code {
 
   //comp table
   private Map<String, String> comp;
@@ -12,7 +12,7 @@ class Mapping {
   //jump table
   private Map<String, String> jump;
 
-  public Mapping(){
+  public Code(){
     
     //comp table fill
     comp = new TreeMap<String, String>();
