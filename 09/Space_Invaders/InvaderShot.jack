@@ -1,8 +1,8 @@
-class InvaderShot {
+class OpponentShot {
 	
 	field int x, y, size;
 	
-	constructor InvaderShot new (int startX) {
+	constructor OpponentShot new (int startX) {
 		let x = startX;
 		let y = 50;
 		let size = 4;

@@ -1,0 +1,72 @@
+class SpaceInvaders {
+
+  // Players vehicle
+field Vehicle character;
+	
+  // Characters orientation
+field int orientation; // 0=none,1=up,2=down,3=left,4=right
+
+  // Characters weapon on/off
+field int firedShot;
+
+	field Array invaders;
+	field int numInvaders; //# of opponents
+	field int invadersDead; //# of oponents dead
+	field int time; //time played
+	field int level; //level #
+	field int score; //total score
+	field int lives; //user lives
+	field int invaderSize; //motion paralax
+	field InvaderShot enRoute; //is the shot coming?
+	field int numEnV; //# of shots en route
+	field int isEnRoute; //checks to see if shots are flying
+	field int vehicleS; // vehicle size
+	field int vehicleX, vehicleY; //vehicle location on screen
+	field int damage; // 0 = not hit, 1 = hit
+	field int invaderToShoot; //# of opponents left
+	
+	
+  /** Constructs a new game. */
+  constructor SpaceInvaders new() {
+    let character = Vehicle.new();
+    let orientation = 0;
+    let firedShot = 0;
+		let numInvaders = 10;		
+		let invadersDead = 0;		
+		let invaders = Array.new(numInvaders);		
+		let score = 0;
+		let time = 0;
+		let level = 0;
+		let numEnV = 0;
+		let isEnRoute = 0;
+		let invaderSize = 10;
+		let vehicleS = 10;
+		let vehicleX = 50;
+		let vehicleY = 10;
+		let invaderToShoot = 0;
+		
+		do makeInvaders();
+		let lives = 3;
+        return this;
+  }
+	
+//make opponents
+method void makeInvaders() {
+	var int x, y, v;
+	var Invader i;
+	let x = 25;
+	let y = 50;
+	let v = 0;
+		
+		//generates array of invaders
+	while (v < numInvaders) {
+		let i = Invader.new(x, y, invaderSize);
+		let invaders[v] = i;
+			
+		let x = x + 20;
+		let v = v+1;
+	}
+		return;
+}
+	
+}
