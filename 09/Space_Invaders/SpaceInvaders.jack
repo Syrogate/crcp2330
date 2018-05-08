@@ -27,6 +27,7 @@ field int firedShot;
 	
 	
   /** Constructs a new game. */
+  //initialize variables
   constructor SpaceInvaders new() {
     let character = Vehicle.new();
     let orientation = 0;
@@ -130,8 +131,8 @@ method void moveInvaders() {
 	// get first alive enemy on the left
 	let v = 0; let found = 0;
 	while ((v < numInvaders) & ~found) {
-		let temp_iv = invaders[v];
-		let dead = temp_iv.getIsDead();
+		let temp_iv = invaders[v]; //temporary storage for array variable
+		let dead = temp_iv.getIsDead(); 
 		if (dead = 0) {
 			let ivL = temp_iv; //create temporary counter for left side
 			let found = 1;
@@ -142,7 +143,7 @@ method void moveInvaders() {
 	// get the first alive enemy on the right of line
 	let v = 9; let found = 0;
 	while ((v > -1) & ~found) {
-		let temp_iv = invaders[v];
+		let temp_iv = invaders[v]; //temporary storage for array variable
 		let dead = temp_iv.getIsDead();
 		if (dead = 0) {
 			let ivR = temp_iv; //create temporary counter for right side
@@ -223,7 +224,7 @@ method void moveInvaders() {
 
    /** Deallocates the object's memory. */
   method void disposeMem() {
-      do character.disposeMem();
+      do character.disposeMem(); //clear vehicle position
       do Memory.deAlloc(this);
       return;
   }
@@ -272,7 +273,7 @@ method void moveInvaders() {
             // waits for a key to be pressed.
             while (key = 0) {
                 if (time = 299) {
-					do chooseInvader();
+					do chooseInvader(); //checks if opponents are hit
 				}
 				do moveProjectile();
 				
@@ -298,8 +299,8 @@ method void moveInvaders() {
 				}
             }
 			if (key = 1) {
-					do Screen.clearScreen();
-					do Output.moveCursor(0, 0);
+					do Screen.clearScreen(); //reset screen
+					do Output.moveCursor(0, 0); //print lines
 					do Output.printString("You lose! Do you wish to restart?");
 					do Output.moveCursor(10, 0);
 					do Output.printString("You killed ");
@@ -321,7 +322,7 @@ method void moveInvaders() {
 					let lives = 3; //reset lives
 					let score = 0; //reset score
 					let level = 0; //reset level
-					do Output.moveCursor(0,0);
+					do Output.moveCursor(0,0); //print lines
 					do Output.printString("SCORE: ");
 					do Output.printInt(score);
 					do Output.printString("      LEVEL: ");
@@ -342,15 +343,15 @@ method void moveInvaders() {
             if (key = 130) {
 				let time = time + 1;	
 				if (time = 299) {
-					do chooseInvader();
+					do chooseInvader(); //checks to see if invader is hit
 				}
-				do moveProjectile();
+				do moveProjectile(); //moves the shot forward
 			    let orientation = 3; //move left
             }
             if (key = 132) {
 				let time = time + 1;	
                 if (time = 299) {
-					do chooseInvader();
+					do chooseInvader(); 
 				}
 				do moveProjectile();
 				let orientation = 4; //move right
@@ -365,7 +366,7 @@ method void moveInvaders() {
 				if (firedShot = 0) {
 					let time = time + 1;	
 					do character.shootShot(); //invokes shoot function on spacebar press
-					let firedShot = 1;
+					let firedShot = 1; //shots fired
 				}
 			}
 	
@@ -403,7 +404,7 @@ method void moveInvaders() {
         return;
     }
 
-    /** Moves the square by 2 pixels in the current direction. */
+    /** Moves the vehicle by 2 pixels in the current direction. */
     method void moveCharacter() {
         if (orientation = 3) {
             do character.moveLeft();
@@ -415,6 +416,7 @@ method void moveInvaders() {
         return;
     }
 	
+	//follows the shot to check hits on invaders
 	method void trackShot(Shot s) {
 		if (s.getY() < 11) {
 			let firedShot = 0;
@@ -423,21 +425,21 @@ method void moveInvaders() {
 		return;
 	}
 	
+	//creates the projectile to be shot
 	method void createProjectile(Invader iv) {
 		var int ivx;
 		let ivx = iv.getX();
 		let enRoute = InavderShot.new(ivx);
-		let isEnRoute = 1; //sets boolean value for bullet to on
+		let isEnRoute = 1; //sets boolean value for projectile to on
 		return;
 	}
 	
-	/** Gets starting x value of bullet */
+	/** Gets starting x value of shot */
 	method void chooseInvader() {
 		// loop through enemies, choose one that isn't dead
 		var int v;
 		var Invader iv;
 		var int ivx, dead;
-		
 		if (isEnRoute = 0) {
 			let v = 0;
 			while (v < numInvaders) {
@@ -481,7 +483,7 @@ method void moveInvaders() {
 		}
 	}
 	
-	/** Undraws and deallocates bullet */
+	/** Undraws and deallocates shot */
 	method void destroyProjectile() {
 		if (isEnRoute = 1) {
 			do enRoute.disposeMem();
@@ -491,13 +493,13 @@ method void moveInvaders() {
 	}
 	
 	method int projectileHitVehicle() {
-		// compares ship's x&y to missle's x&y
+		// compares vehicle's x&y to projectile's x&y
 		
-		var int vy, vx;
-		var int sy, sx;
-		var int ss;
-		var int vSize;
-		let sy = enRoute.getY();
+		var int vy, vx; //vehicle x & y axis
+		var int sy, sx; //shot x & y axis
+		var int ss; //shot size
+		var int vSize; //vehicle size
+		let sy = enRoute.getY(); 
 		let vy = character.getY();
 		let sx = enRoute.getX();
 		let vx = character.getX();
@@ -507,14 +509,15 @@ method void moveInvaders() {
 		
 		if (isEnRoute = 1) {
 
+			//setting boundary parameters for cases of contact 
 			if (((sx > vx) & (sy > vy) & (sx < (vx + vehicleX)) & (sy < (vy + vehicleY)))				|
 				(((sx + ss) > vx) & (sy > vy) & ((sx + ss) < (vx + vehicleX)) & (sy < (vy + vehicleY))) |
 				((sx > vx) & ((sy + ss) > vy) & (sx < (vx + vehicleX)) & ((sy + ss) < (vy + vehicleY)))	|
 				(((sx+ss) > vx) & ((sy + ss) > vy) & ((sx + ss) < (vx + vehicleX)) & ((sy + ss) < (vy + vehicleY)))) {
 				
-				do destroyProjectile();
-				let lives = lives -1;
-				do Output.moveCursor(0,0);
+				do destroyProjectile(); //deletes the shot from screen
+				let lives = lives -1; //live deduction
+				do Output.moveCursor(0,0); //print statements
 				do Output.printString("SCORE: ");
 				do Output.printInt(score);
 				do Output.printString("      LEVEL: ");
