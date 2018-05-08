@@ -1,9 +1,9 @@
-class Opponent {
+class Invader {
 	field int x, y, size, alive;
 	field int orientation; // 1 - right, 2 - left
 	
 	
-	constructor Opponent new(int startx, int starty, int startsize) {
+	constructor Invader new(int startx, int starty, int startsize) {
 		let size = startsize;
 		let x = startx;
 		let y = starty;
