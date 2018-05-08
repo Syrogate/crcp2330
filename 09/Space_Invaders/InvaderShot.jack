@@ -10,7 +10,7 @@ class InvaderShot {
 	}
 	
 	
-	method void disposeMem() {
+	method void dispose() {
 		do Screen.setColor(false);
 	    do Screen.drawRectangle(x, y, x + size, y + size);
 	    let x = 500;

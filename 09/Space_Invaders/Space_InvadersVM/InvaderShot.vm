@@ -10,7 +10,7 @@ push constant 4
 pop this 2
 push pointer 0
 return
-function InvaderShot.disposeMem 0
+function InvaderShot.dispose 0
 push argument 0
 pop pointer 0
 push constant 0

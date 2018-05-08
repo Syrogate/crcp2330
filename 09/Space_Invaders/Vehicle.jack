@@ -12,7 +12,7 @@ class Vehicle {
     /** Constructs new square w/ given location and size. */
     constructor Vehicle new() {
         let x = 0;
-        let y = 200;
+        let y = 230;
         let size = 10;
 		let width = 40;
         do draw();
@@ -28,7 +28,7 @@ class Vehicle {
 	}
 	
     /** Deallocates object memory. */
-    method void disposeMem() {
+    method void dispose() {
         do Memory.deAlloc(this);
         return;
     }

@@ -5,7 +5,7 @@ class Main {
         var SpaceInvaders game;
         let game = SpaceInvaders.new();
         do game.run();
-        do game.disposeMem();
+        do game.dispose();
 
         return;
     }

@@ -111,7 +111,7 @@ if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
 push local 3
-call Invader.disposeMem 1
+call Invader.dispose 1
 pop temp 0
 push this 5
 push constant 1
@@ -570,11 +570,11 @@ call Sys.wait 1
 pop temp 0
 push constant 0
 return
-function SpaceInvaders.disposeMem 0
+function SpaceInvaders.dispose 0
 push argument 0
 pop pointer 0
 push this 0
-call Vehicle.disposeMem 1
+call Vehicle.dispose 1
 pop temp 0
 push pointer 0
 call Memory.deAlloc 1
@@ -797,7 +797,7 @@ eq
 if-goto IF_TRUE3
 goto IF_FALSE3
 label IF_TRUE3
-call b.disposeMem 0
+call b.dispose 0
 pop temp 0
 push constant 0
 pop this 2
@@ -1239,7 +1239,8 @@ push this 6
 push constant 1
 add
 pop this 6
-call vehicle.fireShot 0
+push this 0
+call Vehicle.fireShot 1
 pop temp 0
 push constant 1
 pop this 2
@@ -1319,7 +1320,7 @@ eq
 if-goto IF_TRUE18
 goto IF_FALSE18
 label IF_TRUE18
-call b.disposeMem 0
+call b.dispose 0
 pop temp 0
 push constant 0
 pop this 2
@@ -1369,7 +1370,7 @@ label IF_TRUE0
 push constant 0
 pop this 2
 push argument 1
-call Shot.disposeMem 1
+call Shot.dispose 1
 pop temp 0
 label IF_FALSE0
 push constant 0
@@ -1500,7 +1501,7 @@ if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
 push this 11
-call InvaderShot.disposeMem 1
+call InvaderShot.dispose 1
 pop temp 0
 push constant 0
 pop this 13

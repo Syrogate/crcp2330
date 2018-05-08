@@ -5,7 +5,7 @@ class Shot {
 
 	constructor Shot new (int startX) {
 		let x = startX;
-		let y = 200;
+		let y = 229;
 		let size = 2;
 
 		do draw();
@@ -21,7 +21,7 @@ class Shot {
 	}
 
     /** Deallocates the object's memory. */
-    method void disposeMem() {
+    method void dispose() {
 		do Screen.setColor(false);
         do Screen.drawRectangle(x, y, x + size, y + size);
 	    do Memory.deAlloc(this);
@@ -44,7 +44,7 @@ class Shot {
             do Screen.drawRectangle(x, y, x + size, y + size);
         }
 		else {
-			do disposeMem();
+			do dispose();
 		}
         return;
     }

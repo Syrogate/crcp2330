@@ -15,11 +15,11 @@ class Invader {
 	
 	method void draw() {
 		do Screen.setColor(true);
-		do Screen.drawRectangle(x, y, x+size, y+size);
+		do Screen.drawRectangle(x, y, x + size, y + size);
 		return;
 	}
 	
-	method void disposeMem() {
+	method void dispose() {
 		let alive = 1;
 		do Screen.setColor(false);
 	    do Screen.drawRectangle(x, y, x + size, y + size);
@@ -59,7 +59,7 @@ class Invader {
 			do Screen.drawRectangle(x, y, x + size, y + size);
 			let x = x + 10;
 			do Screen.setColor(true);
-			do Screen.drawRectangle(x, y, x+size, y+size);
+			do Screen.drawRectangle(x, y, x + size, y + size);
 		}
 		return;
 	}
@@ -71,7 +71,7 @@ class Invader {
 		    do Screen.drawRectangle(x, y, x + size, y + size);
 			let y = y + 10;
 			do Screen.setColor(true);
-			do Screen.drawRectangle(x, y, x+size, y+size);
+			do Screen.drawRectangle(x, y, x + size, y + size);
 			
 		}
 		return;
@@ -83,7 +83,7 @@ class Invader {
 		    do Screen.drawRectangle(x, y, x + size, y + size);
 			let x = x - 10;
 			do Screen.setColor(true);
-			do Screen.drawRectangle(x, y, x+size, y+size);
+			do Screen.drawRectangle(x, y, x + size, y + size);
 		
 		}
 		return;

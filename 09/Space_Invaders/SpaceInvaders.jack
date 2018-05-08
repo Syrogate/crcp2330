@@ -76,7 +76,7 @@ method int hitInvader(Shot s) {
 		let iv = invaders[v]; //set invaders object representative of array vector
 		let r = shotHitInvader(iv, s); //function call
 		if (r = 1) {		
-			do iv.disposeMem(); //allocates memory
+			do iv.dispose(); //allocates memory
 			let invadersDead = invadersDead + 1; //increment dead opponent tally
 			let score = score + 1; //increment score
 			do Output.moveCursor(0,0);
@@ -223,8 +223,8 @@ method void moveInvaders() {
 	}
 
    /** Deallocates the object's memory. */
-  method void disposeMem() {
-      do character.disposeMem(); //clear vehicle position
+  method void dispose() {
+      do character.dispose(); //clear vehicle position
       do Memory.deAlloc(this);
       return;
   }
@@ -290,7 +290,7 @@ method void moveInvaders() {
 					do trackShot(s); //observes shot movement
 					let didHit1 = hitInvader(s); //logic check
 					if (didHit1 = 1) {
-						do b.disposeMem(); //refresh shot
+						do b.dispose(); //refresh shot
 						let firedShot = 0;
 					}
                 }
@@ -340,7 +340,7 @@ method void moveInvaders() {
             if (key = 81) {
                 let exit = true;
             }
-            if (key = 130) {
+            if (key =  130) {
 				let time = time + 1;	
 				if (time = 299) {
 					do chooseInvader(); //checks to see if invader is hit
@@ -348,7 +348,7 @@ method void moveInvaders() {
 				do moveProjectile(); //moves the shot forward
 			    let orientation = 3; //move left
             }
-            if (key = 132) {
+            if (key =  132) {
 				let time = time + 1;	
                 if (time = 299) {
 					do chooseInvader(); 
@@ -357,7 +357,7 @@ method void moveInvaders() {
 				let orientation = 4; //move right
             }
             //space bar = 32
-            if (key = 32) { 
+            if (key =  32) { 
 				let time = time + 1;	
 				if (time = 299) {
 					do chooseInvader();
@@ -365,7 +365,7 @@ method void moveInvaders() {
 				do moveProjectile();
 				if (firedShot = 0) {
 					let time = time + 1;	
-					do vehicle.fireShot(); //invokes shoot function on spacebar press
+					do character.fireShot(); //invokes shoot function on spacebar press
 					let firedShot = 1; //shots fired
 				}
 			}
@@ -391,7 +391,7 @@ method void moveInvaders() {
 					do trackShot(s); //tracks shot movement 
 					let didHit2 = hitInvader(s); //logic loop
 					if (didHit2 = 1) {
-						do b.disposeMem();
+						do b.dispose();
 						let firedShot = 0;
 					}
 					
@@ -420,7 +420,7 @@ method void moveInvaders() {
 	method void trackShot(Shot s) {
 		if (s.getY() < 11) {
 			let firedShot = 0;
-			do s.disposeMem();
+			do s.dispose();
 		}
 		return;
 	}
@@ -486,7 +486,7 @@ method void moveInvaders() {
 	/** Undraws and deallocates shot */
 	method void destroyProjectile() {
 		if (isEnRoute = 1) {
-			do enRoute.disposeMem();
+			do enRoute.dispose();
 			let isEnRoute = 0;
 		}
 		return;
