@@ -118,14 +118,14 @@ method int shotHitInvader (Invader iv, Shot s) {
 
 	//method to move invaders on screen
 method void moveInvaders() {
-	var int v;
+	var int v; //character placement
 	var Invader ivR, ivL, temp_iv, iv;
-	var int ivrx;
-	var int ivlx;
-	var int ivy;
-	var int dir;
-	var int dead, found;
-	var int atLeft, atRight, atBottom;
+	var int ivrx; //Right x axis componenent object of Invader class
+	var int ivlx; //Left x axis componenent object of Invader class
+	var int ivy; //Y axis componenet object of Invader class
+	var int dir; //orientation
+	var int dead, found; //current and dead enemies
+	var int atLeft, atRight, atBottom; //border collision check
 	
 	// get first alive enemy on the left
 	let v = 0; let found = 0;
@@ -133,7 +133,7 @@ method void moveInvaders() {
 		let temp_iv = invaders[v];
 		let dead = temp_iv.getIsDead();
 		if (dead = 0) {
-			let ivL = temp_iv;
+			let ivL = temp_iv; //create temporary counter for left side
 			let found = 1;
 		}
 		let v = v + 1;
@@ -145,16 +145,16 @@ method void moveInvaders() {
 		let temp_iv = invaders[v];
 		let dead = temp_iv.getIsDead();
 		if (dead = 0) {
-			let ivR = temp_iv;
+			let ivR = temp_iv; //create temporary counter for right side
 			let found = 1;
 		}
 		let v = v - 1;
 	}
 	
-	let ivrx = ivR.getX();
-	let ivlx = ivL.getX();
-	let ivy = ivL.getY();
-	let dir = ivL.getOrientation();
+	let ivrx = ivR.getX(); //store value in right getX function
+	let ivlx = ivL.getX(); //store value in left getX function
+	let ivy = ivL.getY(); //store value in getY function
+	let dir = ivL.getOrientation(); //store value in orientation function
 	
 	let atLeft = 0; let atRight = 0; let atBottom = 1; 
 	if (ivlx < 20) {
@@ -166,53 +166,41 @@ method void moveInvaders() {
 	if (ivy > 200) {
 		let atBottom = 1;
 	}
-
-		
-		//
-		// MOVING CASES
-		//
-		// currently moving left  -> dir = 2
-		//		- not left most edge 			=> continue moving left   -> atLeft is 0
-		//		- at left most edge				=> move down, change direction (i.e. right) -> atLeft is 1
-		// currently moving right -> dir = 1
-		// 		- not at right most edge		=> continue moving right -> enR is below 490
-		//		- at right most edge			=> move down, change direction to left -> enR is above 490
-		// currently moving down 
-		// 		- not at bottom border			=> move down once
-		//		- at bottom border				=> never ever ever move down again
-		//
-		
-	if (dir = 1) { // going right
+	
+	// going right
+	if (dir = 1) { 
 		if (atRight = 0) {
 			// continue moving right
 			let v = 0;
 			while (v < numInvaders) {
 				let iv = invaders[v];
-				do iv.moveX();
+				do iv.flipX(); //goes other direction
 				let v = v + 1;
 			}
 		}
 		else {
-			if (atBottom = 1) { // are currently at right border
+			//at right border
+			if (atBottom = 1) { 
 				// move left
 				let v = 0;
 				while (v < numInvaders) {
 					let iv = invaders[v];
-					do iv.flipX();
-					do iv.changeOrientation();
+					do iv.flipX(); //goes other direction
+					do iv.changeOrientation(); //function call to switch orientaiton
 					let v = v + 1;
 				}
 			}
 		}
 	}
-
-	if (dir = 2) { // going left
+	
+	// going left
+	if (dir = 2) { 
 		if (atLeft = 0) {
 			// continue moving left
 			let v = 0;
 			while (v < numInvaders) {
 				let iv = invaders[v];
-				do iv.flipX();
+				do iv.flipX(); //goes other direction
 				let v = v + 1;
 			}
 		}
@@ -222,14 +210,36 @@ method void moveInvaders() {
 				let v = 0;
 				while (v < numInvaders) {
 					let iv = invaders[v];
-					do iv.flipX();
-					do iv.changeOrientation();
+					do iv.flipX(); //goes other direction 
+					do iv.changeOrientation(); //function call to switch orientation
 					let v = v  + 1;
 				}
 			}
 		}
 	}
-	do Sys.wait(7);
+	do Sys.wait(7); //delay
 	return;
 	}
-}
+
+   /** Deallocates the object's memory. */
+  method void disposeMem() {
+      do character.disposeMem();
+      do Memory.deAlloc(this);
+      return;
+  }
+  		//Time bonus
+	method int mod(int t, int a) {
+		var int temp;
+		let temp = t;
+		if (t > 300) {
+		  let time = 0;
+		}
+		if (t < a) {
+			return t;
+		}
+		while (temp > (a-1)) {
+			let temp = temp - a;
+		}
+		return temp;
+	}
+	
