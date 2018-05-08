@@ -1,0 +1,46 @@
+class Opponent {
+	field int x, y, size, alive;
+	field int orientation; // 1 - right, 2 - left
+	
+	
+	constructor Opponent new(int startx, int starty, int startsize) {
+		let size = startsize;
+		let x = startx;
+		let y = starty;
+		let orientation = 1;
+		let alive = 0;
+		do draw();
+		return this;
+	}
+	
+	method void draw() {
+		do Screen.setColor(true);
+		do Screen.drawRectangle(x, y, x+size, y+size);
+		return;
+	}
+	
+	method void dispose() {
+		let alive = 1;
+		do Screen.setColor(false);
+	    do Screen.drawRectangle(x, y, x + size, y + size);
+	    let x = 500;
+	    let y = 245;
+	    do Screen.setColor(true);
+        return;
+	}
+
+	method int getX() {
+		return x;
+	}
+	method int getY() {
+		return y;
+	}
+	
+	method int getAlive() {
+		return alive;
+	}
+	
+	method int getOrientation() {
+		return orientationn;
+	}	
+}
