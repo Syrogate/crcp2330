@@ -778,7 +778,8 @@ eq
 if-goto IF_TRUE2
 goto IF_FALSE2
 label IF_TRUE2
-call Characters.getShot 0
+push this 0
+call Vehicle.getShot 1
 pop local 3
 push local 3
 call Shot.shoot 1
@@ -1382,7 +1383,7 @@ push argument 1
 call Invader.getX 1
 pop local 0
 push local 0
-call InavderShot.new 1
+call InvaderShot.new 1
 pop this 11
 push constant 1
 pop this 13

@@ -285,12 +285,12 @@ method void moveInvaders() {
 					do moveInvaders(); //delay on movement for enemies
 				}
 				 if (firedShot = 1) {
-                    let s = Characters.getShot(); //shot where the player is currently at
+                    let s = character.getShot(); //shot where the player is currently at
                     do s.shoot(); //shoot function call
 					do trackShot(s); //observes shot movement
 					let didHit1 = hitInvader(s); //logic check
 					if (didHit1 = 1) {
-						do b.dispose(); //refresh shot
+						do s.dispose(); //refresh shot
 						let firedShot = 0;
 					}
                 }
@@ -333,7 +333,6 @@ method void moveInvaders() {
 				else {
 					let exit = true;
 					let key = 81;
-					
 				}
 			}
 			
@@ -391,7 +390,7 @@ method void moveInvaders() {
 					do trackShot(s); //tracks shot movement 
 					let didHit2 = hitInvader(s); //logic loop
 					if (didHit2 = 1) {
-						do b.dispose();
+						do s.dispose();
 						let firedShot = 0;
 					}
 					
@@ -429,7 +428,7 @@ method void moveInvaders() {
 	method void createProjectile(Invader iv) {
 		var int ivx;
 		let ivx = iv.getX();
-		let enRoute = InavderShot.new(ivx);
+		let enRoute = InvaderShot.new(ivx);
 		let isEnRoute = 1; //sets boolean value for projectile to on
 		return;
 	}
