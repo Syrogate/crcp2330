@@ -45,7 +45,7 @@ return
 function SpaceInvaders.makeInvaders 4
 push argument 0
 pop pointer 0
-push constant 25
+push constant 15
 pop local 0
 push constant 50
 pop local 1
@@ -404,7 +404,7 @@ push constant 1
 pop local 11
 label IF_FALSE2
 push local 5
-push constant 490
+push constant 470
 gt
 if-goto IF_TRUE3
 goto IF_FALSE3
@@ -448,7 +448,7 @@ pop pointer 1
 push that 0
 pop local 4
 push local 4
-call Invader.flipX 1
+call Invader.moveX 1
 pop temp 0
 push local 0
 push constant 1
@@ -551,7 +551,7 @@ pop pointer 1
 push that 0
 pop local 4
 push local 4
-call Invader.flipX 1
+call Invader.moveX 1
 pop temp 0
 push local 4
 call Invader.changeOrientation 1

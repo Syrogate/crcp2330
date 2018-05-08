@@ -54,7 +54,7 @@ field int firedShot;
 method void makeInvaders() {
 	var int x, y, v;
 	var Invader i;
-	let x = 25;
+	let x = 15;
 	let y = 50;
 	let v = 0;
 		
@@ -161,7 +161,7 @@ method void moveInvaders() {
 	if (ivlx < 20) {
 		let atLeft = 1;
 	}
-	if (ivrx > 490) {
+	if (ivrx > 470) {
 		let atRight = 1;
 	}
 	if (ivy > 200) {
@@ -175,7 +175,7 @@ method void moveInvaders() {
 			let v = 0;
 			while (v < numInvaders) {
 				let iv = invaders[v];
-				do iv.flipX(); //goes other direction
+				do iv.moveX(); //continues movt in direction
 				let v = v + 1;
 			}
 		}
@@ -211,7 +211,7 @@ method void moveInvaders() {
 				let v = 0;
 				while (v < numInvaders) {
 					let iv = invaders[v];
-					do iv.flipX(); //goes other direction 
+					do iv.moveX(); //continues movt in direction
 					do iv.changeOrientation(); //function call to switch orientation
 					let v = v  + 1;
 				}
