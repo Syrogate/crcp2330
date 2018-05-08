@@ -13,14 +13,14 @@
    @counter
    M=D
    @SCREEN
-   D=A
+   D=A 
    @address
    M=D
 (LOOP)
    @address
-   A=M
+   A=M 
    M=-1
-   @address
+   @address 
    D=M
    @32
    D=D+A
