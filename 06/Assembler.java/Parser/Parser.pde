@@ -18,14 +18,13 @@ class Parse {
   public static commandType comType;  //A,C,L Command
   public static int symbolValue  = 16; //symbol value
 
-
   //Opens the input file and gets ready to parse it 
   Parse(String exFileName) {
     lineCount = 0;//init's line count
     //file IO fstream logic
     FileInputStream fstream = null; 
     try {
-      fstream = new FileInputStream(exFileName); //writes the input 
+      fstream = new FileInputStream(exFileName); //writes the input
     } 
     catch (FileNotFoundException ex) {
       ex.printStackTrace(); //outputs to screen
@@ -45,11 +44,12 @@ class Parse {
     //load input stream reader into buffered reader IO 
     bReader = new BufferedReader(new InputStreamReader(in));
     //clears excess file data
-    //sFile = removeComments(sFile);
+    sFile = removeComments(sFile);
     //copies string to string array
     sFileArr = sFile.split("\n");
-    //trim unnecessary lines 
+    //For loop for array generation
     for (int i=0; i < sFileArr.length; i++) {
+      //trim unnecessary lines 
       sFileArr[i] =  sFileArr[i].trim();
     }
   }
@@ -80,10 +80,10 @@ class Parse {
   }
   
   //command type, enums
-  enum commandType {
+  static enum commandType {
     A_COMMAND, L_COMMAND, C_COMMAND
   }
-  
+
   //symbol class
   public String symbol()
   {
@@ -132,9 +132,43 @@ class Parse {
     {
       String retJump = sFileArr[lineCount]; //count digits used for jump combinations
       int endIndex = retJump.lastIndexOf(";"); //check jump index
-      return retJump.substring(endIndex+1, retJump.length()); //output 
+      return retJump.substring(endIndex+1, retJump.length()); //output
     }
     return null;
   }
+  //removes comments from source file
+  public String removeComments(String file) {
+    String tmpFile =  file.replaceAll( "//.*|(\"(?:\\\\[^\"]|\\\\\"|.)*?\")|(?s)/\\*.*?\\*/|(?m)^[ \t]*\r?\n|null|\t", "" );
+    tmpFile = tmpFile.replaceAll("(?m)^[ \t]*\r?\n", "");
+    return tmpFile;
+  }
 
+  //dec to bin converter
+  public String dexToBin(int value) {
+    String binVal = Integer.toBinaryString(value);
+    return binVal;
+  }
+  //check's if number
+  public boolean isNum(String num)
+  {
+    NumberFormat formatter = NumberFormat.getInstance();
+    ParsePosition pos = new ParsePosition(0); //loads and initilizes position instance 
+    formatter.parse(num, pos); //format instance
+    return  num.length() == pos.getIndex(); //outputs number/position
+  }
+
+  //adds zeroes
+  public String addZero(String num)
+  {
+    //create new string builder object
+    StringBuilder sb = new StringBuilder();
+    //for loop that acts as JUMP functionality
+    for (int toPrepend=16-num.length(); toPrepend>0; toPrepend--) {
+      sb.append('0');
+    }
+
+    sb.append(num); //add
+    String result = sb.toString(); //load new num to be outputed
+    return result;
+  }
 }
