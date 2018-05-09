@@ -4,127 +4,120 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-class Assemble {
-  public int counter=0;
-  public int nextRam = 16;
-  public String compT, destT, jumpT; // temp's
-  public void main(String[] args) {
-   
-    Assemble(SymTable, Mapping, Parse) {}
-    
-    String name = args[0].substring(0, args[0].indexOf('.'));  //copies name of existing file without the file type
 
-    String outFileName = name+".hack";  //out file name
-    
-    SymTable st = new SymTable(); //init's symbol table
+void setup() {
+  int counter=0;
+  int nextRam = 16;
+  String compT, destT, jumpT; // temp's
 
-    Mapping mp = new Mapping();  //init's code tables
+  //Assemble(SymTable, Mapping, Parse) {}
 
-    Parse newParse = new Parse(args[0]);  //new parse objemp
+  String name = args[counter].substring(counter, args[counter].indexOf('.'));  //copies name of existing file without the file type
 
-    File out = new File(outFileName);  //output, .hack file
-    
-    FileWriter fw = null;
-    try {
-      fw = new FileWriter(out.getAbsoluteFile());
-    } 
-    catch (IOException e) {
-      e.printStackTrace();
-    }
-    BufferedWriter bw = new BufferedWriter(fw); // Ready to write on file
+  String outFileName = name+".hack";  //out file name
 
+  SymbolTable st = new SymbolTable(); //init's symbol table
 
+  Code mp = new Code();  //init's code tables
 
-    //first pass
-    while (newParse.hasMoreCommand()) {  
-      if (newParse.commandType()== newParse.commandType.L_COMMAND) { 
+  Parser newParser = new Parser(args[0]);  //new parse objemp
 
-        st.addEntry(newParse.symbol(), Integer.toString(counter)) ; //adds new symbol to symbol table
-      } else counter++; //next line
+  File out = new File(outFileName);  //output, .hack file
 
-      newParse.advance();  // next command
-    }
-    newParse.lineCount =0;   // resets counter for starts from first line
+  FileWriter fw = null;
+  try {
+    fw = new FileWriter(out.getAbsoluteFile());
+  } 
+  catch (IOException e) {
+    e.printStackTrace();
+  }
+  BufferedWriter bw = new BufferedWriter(fw); // Ready to write on file
 
-    //second pass
-    while (newParse.hasMoreCommand())
+  //first pass
+  while (newParser.hasMoreCommand()) {  
+    if (newParser.commandType()== newParser.commandType().L_COMMAND) { 
+      st.addEntry(newParser.symbol(), Integer.toString(counter)) ; //adds new symbol to symbol table
+    } else counter++; //next line
+    newParser.advance();  // next command
+  }
+  newParser.lineCount =0;   // resets counter for starts from first line
+
+  //second pass
+  while (newParser.hasMoreCommand())
+  {
+    if (newParser.commandType()== newParser.commandType().A_COMMAND) //@xxx
     {
-      if (newParse.commandType()== newParse.commandType.A_COMMAND) //@xxx
+      if (newParser.sFileArr[newParser.lineCount].startsWith("@"))
       {
-        if (newParse.strFileArr[newParse.lineCount].startsWith("@"))
+        String tmp  = newParser.symbol(); //returns xxx
+        if (newParser.isNum(tmp))  //checks if xxx is number
         {
-          String tmp  = newParse.symbol(); //returns xxx
-          if (newParse.isNum(tmp))  //checks if xxx is number
+          int xxx = Integer.parseInt(tmp);
+          tmp = newParser.dexToBin(xxx);  // return bin value of xxx
+          tmp = newParser.addZero(tmp);
+          try {
+            bw.write(tmp + '\n');//write to hack
+          } 
+          catch (IOException e) {
+            e.printStackTrace();
+          }
+        } else  //if not number
+        {
+          if (!st.containKey(tmp))  // not exists in Symbol Table
           {
-            int xxx = Integer.parseInt(tmp);
-            tmp = newParse.dexToBin(xxx);  // return bin value of xxx
-            tmp = newParse.addZero(tmp);
+            st.addEntry(tmp, Integer.toString(nextRam));  //Adds to Symbol Table
+            nextRam++;
+          }
+          if (st.containKey(tmp)) // already exists in Symbol Table
+          {
+            String tmp2 = st.getValue(tmp);
+            int xxx = Integer.parseInt(tmp2);
+            tmp2 = newParser.dexToBin(xxx);
+            tmp2 = newParser.addZero(tmp2);
             try {
-              bw.write(tmp + '\n');//write to hack
+              bw.write(tmp2+'\n');  //write to hack
             } 
             catch (IOException e) {
               e.printStackTrace();
             }
-          } else  //if not number
-          {
-            if (!st.containKey(tmp))  // not exists in Symbol Table
-            {
-              st.addEntry(tmp, Integer.toString(nextRam));  //Adds to Symbol Table
-              nextRam++;
-            }
-            if (st.containKey(tmp)) // already exists in Symbol Table
-            {
-              String tmp2 = st.getValue(tmp);
-              int xxx = Integer.parseInt(tmp2);
-              tmp2 = newParse.dexToBin(xxx);
-              tmp2 = newParse.addZero(tmp2);
-              try {
-                bw.write(tmp2+'\n');  //write to hack
-              } 
-              catch (IOException e) {
-                e.printStackTrace();
-              }
-            }
           }
         }
-      }//if command type A_COMMAND 
-      if (newParse.commandType()== newParse.commandType.C_COMMAND)
+      }
+    }//if command type A_COMMAND 
+    if (newParser.commandType()== newParser.commandType().C_COMMAND)
+    {
+      if (newParser.sFileArr[newParser.lineCount].contains("="))//dest=comp
       {
-        if (newParse.strFileArr[newParse.lineCount].contains("="))//dest=comp
-        {
-
-
-          destT = mp.getDest(newParse.dest());
-          compT = mp.getComp(newParse.comp());
-          jumpT = mp.getJump("NULL");  //no need jump
-          try {
-            bw.write("111" + compT + destT + jumpT +'\n');
-          } 
-          catch (IOException e) {
-            e.printStackTrace();
-          }
-        } else if (newParse.strFileArr[newParse.lineCount].contains(";")) //jump
-        {
-          destT = mp.getDest("NULL"); // no need dest
-          compT = mp.getComp(newParse.comp());
-          jumpT = mp.getJump(newParse.jump());
-
-          try {
-            bw.write("111" + compT + destT + jumpT +'\n');
-          } 
-          catch (IOException e) {
-            e.printStackTrace();
-          }
+        destT = mp.getDest(newParser.dest());
+        compT = mp.getComp(newParser.comp());
+        jumpT = mp.getJump("NULL");  //no need jump
+        try {
+          bw.write("111" + compT + destT + jumpT +'\n');
+        } 
+        catch (IOException e) {
+          e.printStackTrace();
         }
-      }//if command type C_COMMAND 
-      newParse.advance();
-    }//end while
+      } else if (newParser.sFileArr[newParser.lineCount].contains(";")) //jump
+      {
+        destT = mp.getDest("NULL"); // no need dest
+        compT = mp.getComp(newParser.comp());
+        jumpT = mp.getJump(newParser.jump());
 
-    try {
-      bw.close();
-    } 
-    catch (IOException e) {
-      e.printStackTrace();
-    }
+        try {
+          bw.write("111" + compT + destT + jumpT +'\n');
+        } 
+        catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    }//if command type C_COMMAND 
+    newParser.advance();
+  }//end while
+
+  try {
+    bw.close();
+  } 
+  catch (IOException e) {
+    e.printStackTrace();
   }
 }

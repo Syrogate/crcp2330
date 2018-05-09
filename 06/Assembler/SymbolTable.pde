@@ -2,11 +2,11 @@
 import java.util.Map;
 import java.util.TreeMap;
 
-class SymTable {
+class SymbolTable {
 
   private Map<String, String> symbol;
    
-  public SymTable() {
+  public SymbolTable() {
       symbol = new TreeMap<String,String>();
      
       //Symbol Table filled in

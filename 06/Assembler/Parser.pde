@@ -1,5 +1,4 @@
 /*Pareser class*/
-
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
@@ -8,18 +7,23 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.NumberFormat;
 import java.text.ParsePosition;
+import java.util.EnumSet;
 
-class Parse {
+//command type, enums
+public enum commandType {
+  A_COMMAND(), L_COMMAND(), C_COMMAND()
+}
+class Parser {
   private String sFile;  //reading line by line from file
   public String sFileArr[];  //string array
-  public static String currComm;//line in string array
+  public String currComm;//line in string array
   public int lineCount; //line counter
   public BufferedReader bReader; //import reader library
-  public static commandType comType;  //A,C,L Command
-  public static int symbolValue  = 16; //symbol value
+  public commandType comType;  //A,C,L Command
+  public int symbolValue  = 16; //symbol value
 
   //Opens the input file and gets ready to parse it 
-  Parse(String exFileName) {
+  Parser(String exFileName) {
     lineCount = 0;//init's line count
     //file IO fstream logic
     FileInputStream fstream = null; 
@@ -78,11 +82,8 @@ class Parse {
     }
     return commandType.C_COMMAND; //logic check for C command
   }
-  
-  //command type, enums
-  static enum commandType {
-    A_COMMAND, L_COMMAND, C_COMMAND
-  }
+
+
 
   //symbol class
   public String symbol()
