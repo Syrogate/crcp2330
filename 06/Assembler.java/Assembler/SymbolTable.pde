@@ -1,4 +1,4 @@
-/*  Symbol table class */
+/*Symbol table class*/
 import java.util.Map;
 import java.util.TreeMap;
 
